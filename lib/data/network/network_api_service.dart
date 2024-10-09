@@ -13,7 +13,7 @@ class NetworkApiService extends BaseApiServices {
       }).timeout(const Duration(seconds: 10));
       return Right(Data(value));
     } catch (e) {
-      return Left(ServerError(e.toString()));
+      return Left(ServerError("Internet Problem Restart The App"));
     }
   }
 }

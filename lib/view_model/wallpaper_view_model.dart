@@ -10,7 +10,7 @@ class WallpaperViewModel with ChangeNotifier {
   final _myRepo = WallpaperRepository();
   final List<Wallpaper> _walpapers = [];
   List<Wallpaper> get wallpapers => _walpapers;
-  String error = "";
+  String errorValue = "";
   bool _isLoading = true;
   bool get isLoading => _isLoading;
 
@@ -21,7 +21,7 @@ class WallpaperViewModel with ChangeNotifier {
     final value = await _myRepo.getApiData(nextPageUrl);
     value.fold((left) {
       _isLoading = false;
-      error = left.message;
+      errorValue = left.message;
     }, (right) {
       _isLoading = false;
       Map<String, dynamic> jsonData = jsonDecode(right.data.body);
@@ -47,7 +47,7 @@ class WallpaperViewModel with ChangeNotifier {
       if (_walpapers.isNotEmpty) {
         return Right(_walpapers);
       } else {
-        throw "Null";
+        throw errorValue;
       }
     } catch (e) {
       return Left(e.toString());
